@@ -277,7 +277,7 @@
 	
 	return CGRectMake(col*46, row*44+6, 47, 45);
 }
-- (void) drawTileInRect:(CGRect)r day:(int)day mark:(BOOL)mark font:(UIFont*)f1 font2:(UIFont*)f2{
+- (void) drawTileInRect:(CGRect)r day:(int)day mark:(int)numOfMarks font:(UIFont*)f1 font2:(UIFont*)f2{
 	
 	NSString *str = [NSString stringWithFormat:@"%d",day];
 	
@@ -288,11 +288,17 @@
 	  lineBreakMode: UILineBreakModeWordWrap 
 		  alignment: UITextAlignmentCenter];
 	
-	if(mark){
+	if(numOfMarks > 0){
 		r.size.height = 10;
 		r.origin.y += 18;
 		
-		[@"•" drawInRect: r
+        NSMutableString *dots = [NSMutableString stringWithString:@"."];
+        
+        for (int i = 1; i < numOfMarks; ++i) {
+            [dots appendString:@"."];
+        }
+        
+		[dots drawInRect: r
 				withFont: f2
 		   lineBreakMode: UILineBreakModeWordWrap 
 			   alignment: UITextAlignmentCenter];
@@ -327,9 +333,9 @@
 		for(int i = firstOfPrev;i<= lastOfPrev;i++){
 			r = [self rectForCellAtIndex:index];
 			if ([marks count] > 0)
-				[self drawTileInRect:r day:i mark:[[marks objectAtIndex:index] boolValue] font:font font2:font2];
+				[self drawTileInRect:r day:i mark:[[marks objectAtIndex:index] intValue] font:font font2:font2];
 			else
-				[self drawTileInRect:r day:i mark:NO font:font font2:font2];
+				[self drawTileInRect:r day:i mark:0 font:font font2:font2];
 			index++;
 		}
 	}
@@ -343,9 +349,9 @@
 		if(today == i) [[UIColor whiteColor] set];
 		
 		if ([marks count] > 0) 
-			[self drawTileInRect:r day:i mark:[[marks objectAtIndex:index] boolValue] font:font font2:font2];
+			[self drawTileInRect:r day:i mark:[[marks objectAtIndex:index] intValue] font:font font2:font2];
 		else
-			[self drawTileInRect:r day:i mark:NO font:font font2:font2];
+			[self drawTileInRect:r day:i mark:0 font:font font2:font2];
 		if(today == i) [color set];
 		index++;
 	}
@@ -355,9 +361,9 @@
 	while(index % 7 != 0){
 		r = [self rectForCellAtIndex:index] ;
 		if ([marks count] > 0) 
-			[self drawTileInRect:r day:i mark:[[marks objectAtIndex:index] boolValue] font:font font2:font2];
+			[self drawTileInRect:r day:i mark:[[marks objectAtIndex:index] intValue] font:font font2:font2];
 		else
-			[self drawTileInRect:r day:i mark:NO font:font font2:font2];
+			[self drawTileInRect:r day:i mark:0 font:font font2:font2];
 		i++;
 		index++;
 	}

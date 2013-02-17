@@ -124,7 +124,7 @@
  @param monthView The calendar month grid.
  @param startDate The first date shown by the calendar month grid.
  @param lastDate The last date shown by the calendar month grid.
- @return Returns an array of NSNumber objects corresponding the number of days specified in the start and last day parameters. Each NSNumber variable will give a BOOL value that will be used to display a dot under the day.
+ @return Returns an array of NSNumber objects corresponding the number of days specified in the start and last day parameters. Each NSNumber variable will give a int value that will be used to display dots under the day. The int value of each NSNumber indicates the number of dots.
  
  */
 - (NSArray*) calendarMonthView:(TKCalendarMonthView*)monthView marksFromDate:(NSDate*)startDate toDate:(NSDate*)lastDate;
